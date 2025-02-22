@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$script_dir"
+
+filter=""
+dry_run=false
+
+scripts=$(find runs -maxdepth 1 -mindepth 1 -perm -u+x -type f)
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --dry)
+            dry_run=true
+            ;;
+        *)
+            filter="$1"
+            ;;
+    esac
+    shift
+done
+
+log() {
+    if [ "$dry_run" = true ]; then
+        echo "[DRY_RUN]: $*"
+    else
+        echo "$*"
+    fi
+}
+
+execute() {
+    log "execute: $*"
+    if [ "$dry_run" = true ]; then
+        return
+    fi
+    "$@"
+}
+
+log "run: filter=$filter"
+
+for script in $scripts; do
+    if [ -n "$filter" ] && [[ "$script" != *"$filter"* ]]; then
+        log "filtered: $filter -- $script"
+        continue
+    fi
+    log "running script: $script"
+    execute "$script"
+done
