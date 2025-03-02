@@ -8,7 +8,7 @@ cd "$script_dir"
 filter=""
 dry_run=false
 
-scripts=$(find runs -maxdepth 1 -mindepth 1 -perm -u+x -type f)
+scripts=$(find runs -maxdepth 1 -mindepth 1 -perm -u+x -type f | sort)
 
 while [ $# -gt 0 ]; do
     case "$1" in
