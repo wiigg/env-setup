@@ -9,6 +9,9 @@ defaults write com.apple.finder ShowStatusBar -bool true
 
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock tilesize -int 42
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.5
 
 defaults write com.apple.screencapture location "$HOME/Documents/Screenshots"
 defaults write com.apple.screencapture type -string "png"
