@@ -23,15 +23,24 @@ fi
 
 dockutil --remove all --no-restart
 
-dockutil --add "/Applications/Firefox Developer Edition.app" --no-restart
-dockutil --add "/Applications/Proton Mail.app" --no-restart
-dockutil --add "/Applications/Microsoft Outlook.app" --no-restart
-dockutil --add "/Applications/Reminders.app" --no-restart
-dockutil --add "/Applications/Notes.app" --no-restart
-dockutil --add "/Applications/Stocks.app" --no-restart
-dockutil --add "/Applications/Spotify.app" --no-restart
-dockutil --add "/Applications/iTerm.app" --no-restart
-dockutil --add "/Applications/ChatGPT.app" --no-restart
+add_dock_app() {
+  local app="$1"
+  if [ -d "$app" ]; then
+    dockutil --add "$app" --no-restart
+  else
+    echo "Skipping missing app: $app"
+  fi
+}
+
+add_dock_app "/Applications/Firefox Developer Edition.app"
+add_dock_app "/Applications/Proton Mail.app"
+add_dock_app "/Applications/Microsoft Outlook.app"
+add_dock_app "/Applications/Reminders.app"
+add_dock_app "/Applications/Notes.app"
+add_dock_app "/Applications/Stocks.app"
+add_dock_app "/Applications/Spotify.app"
+add_dock_app "/Applications/iTerm.app"
+add_dock_app "/Applications/ChatGPT.app"
 
 killall Finder
 killall Dock

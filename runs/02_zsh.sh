@@ -7,7 +7,7 @@ if [ "$SHELL" != "/bin/zsh" ]; then
 fi
 
 if [ ! -d "${HOME}/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    git clone https://github.com/ohmyzsh/ohmyzsh.git "${HOME}/.oh-my-zsh"
 else
     echo "oh-my-zsh is already installed."
 fi
